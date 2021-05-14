@@ -1,53 +1,53 @@
 const MAX_USES = 8;
 
 export class Paint {
-  constructor() {
-    let encoded = localStorage.getItem('paint');
+    constructor() {
+        let encoded = localStorage.getItem('paint');
 
-    if (!encoded) {
-      encoded = '{}';
-      localStorage.setItem('paint', encoded);
+        if (!encoded) {
+            encoded = '{}';
+            localStorage.setItem('paint', encoded);
+        }
+
+        this.data = JSON.parse(encoded);
     }
 
-    this.data = JSON.parse(encoded);
-  }
+    getPaintLeft(color, uses) {
+        if (!this.data[color]) {
+            this.data[color] = MAX_USES;
 
-  getPaintLeft(color, uses) {
-    if (!this.data[color]) {
-      this.data[color] = MAX_USES;
+            localStorage.setItem('paint', JSON.stringify(this.data[color]))
+        }
 
-      localStorage.setItem('paint', JSON.stringify(this.data[color]))
+        if (uses) {
+            this.data[color] = Math.max(this.data[color] - uses, 0);
+
+            localStorage.setItem('paint', JSON.stringify(this.data[color]))
+        }
+
+        return this.data[color];
     }
 
-    if (uses) {
-      this.data[color] = Math.max(this.data[color] - uses, 0);
+    generateReport() {
+        this.reportDone = false;
+        this.inHeader = true;
+        this.rowNum = 0;
+        this.report = "<table>";
 
-      localStorage.setItem('paint', JSON.stringify(this.data[color]))
+        while (!this.reportDone) {
+            this.getReportRow();
+        }
+
+        this.report += '</tbody></table>';
+
+        return this.report;
     }
 
-    return this.data[color];
-  }
+    getReportRow() {
+        let output;
 
-  generateReport() {
-    this.reportDone = false;
-    this.inHeader = true;
-    this.rowNum = 0;
-    this.report = "<table>";
-
-    while (!this.reportDone) {
-      this.getReportRow();
-    }
-
-    this.report += '</tbody></table>';
-
-    return this.report;
-  }
-
-  getReportRow() {
-    let output;
-
-    if (this.inHeader) {
-      output = `
+        if (this.inHeader) {
+            output = `
         <thead>
           <tr>
             <th>Color</th>
@@ -56,29 +56,29 @@ export class Paint {
         </thead>
       `;
 
-      this.inHeader = false;
-    } else {
-      const color = Object.keys(this.data)[this.rowNum++];
+            this.inHeader = false;
+        } else {
+            const color = Object.keys(this.data)[this.rowNum++];
 
-      if (color) {
-        const remaining = this.getPaintLeft(color);
+            if (color) {
+                const remaining = this.getPaintLeft(color);
 
-        output = `
+                output = `
           <tbody>
               <tr>
                   <td>${color}</td>
                   <td>${remaining}</td>
               </tr>
         `;
-      } else {
-        this.reportDone = true;
+            } else {
+                this.reportDone = true;
 
-        return;
-      }
+                return;
+            }
+        }
+
+        this.report += output;
+
+        return output;
     }
-
-    this.report += output;
-
-    return output;
-  }
 }

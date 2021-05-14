@@ -1,15 +1,15 @@
 import { Paint } from '../paint';
 
 describe('Paint', () => {
-  describe('rendering a report', () => {
-    it('returns an HTML table', () => {
-      const paint = new Paint();
+    describe('rendering a report', () => {
+        it('returns an HTML table', () => {
+            const paint = new Paint();
 
-      paint.getPaintLeft('blue', 1);
-      paint.getPaintLeft('red', 2);
-      paint.getPaintLeft('green', 3);
+            paint.getPaintLeft('blue', 1);
+            paint.getPaintLeft('red', 2);
+            paint.getPaintLeft('green', 3);
 
-      const expected = `
+            const expected = `
         <table>
           <thead>
             <tr>
@@ -34,7 +34,7 @@ describe('Paint', () => {
         </table>
       `;
 
-      expect(paint.generateReport()).toEqual(expected);
+            expect(paint.generateReport()).toEqual(expected);
+        });
     });
-  });
 });

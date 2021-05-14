@@ -1,23 +1,23 @@
 import { welcomeMessage } from './messages.js';
 
 export function getNameInputValue() {
-  const nameEl = document.querySelector('.name');
+    const nameEl = document.querySelector('.name');
 
-  return nameEl.value;
+    return nameEl.value;
 }
 
 export function displayWelcome(msg) {
-  const welcomEl = document.getElementById('welcome');
+    const welcomEl = document.getElementById('welcome');
 
-  welcomEl.innerHTML = msg;
+    welcomEl.innerHTML = msg;
 }
 
 export function setupClickHandlers() {
-  const buttonEl = document.querySelector('.done');
+    const buttonEl = document.querySelector('.done');
 
-  buttonEl.addEventListener('click', onDoneButtonClicked);
+    buttonEl.addEventListener('click', onDoneButtonClicked);
 }
 
 function onDoneButtonClicked() {
-  displayWelcome(welcomeMessage());
+    displayWelcome(welcomeMessage());
 }
