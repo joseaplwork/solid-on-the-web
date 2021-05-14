@@ -3,9 +3,9 @@ import { getNameInputValue } from './welcome-view.js';
 
 // View change -- Designers, PM, Developers
 function getFullName() {
-    return getNameInputValue();
+  return getNameInputValue();
 }
 
 export function getFirstName() {
-    return parseFirstName(getFullName());
+  return parseFirstName(getFullName());
 }
