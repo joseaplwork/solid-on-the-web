@@ -14,4 +14,7 @@ Single responsability
 * A class should have only one reason to change.
 * Helps code organization.
 * The goal is to isolate the sources of change and to minimised the cost of those changes
-
+* It is important to idenify source of change
+* Who are the request agents?
+    PM, Designer, Finance, Legal?
+* Command Query Separation
