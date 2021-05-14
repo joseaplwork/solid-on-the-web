@@ -1,20 +1,36 @@
-window.addEventListener('load', () => {
-    const welcomEl = document.getElementById('welcome');
+function setupClickHandlers() {
     const buttonEl = document.querySelector('.done');
  
-    buttonEl.addEventListener('click', () => {
-        let name = document.querySelector('.name');
+    buttonEl.addEventListener('click',  onButtonClicked);   
+}
 
-        name = name.value.split(' ');
+function onButtonClicked() {
+    const name = getFullName();
+    const firstName = parseFirstName(name);
 
-        if (
-            name[0] === 'Mr.' ||
-            name[0] === 'Mrs.' ||
-            name[0] === 'Dr.'
-        ) {
-            name.shift();        
-        }
-    
-        welcomEl.innerHTML = `Welcome ${name[0]}!`;
-    });
-});
+    renderMessage(firstName);
+}
+
+function getFullName() {
+    return document.querySelector('.name');
+}
+
+function parseFirstName(fullName) {
+    if (
+        fullName[0] === 'Mr.' ||
+        fullName[0] === 'Mrs.' ||
+        fullName[0] === 'Dr.'
+    ) {
+        fullName[1];        
+    }
+
+    return fullName[0];
+}
+
+function renderMessage(name) {
+    const welcomEl = document.getElementById('welcome');
+
+    welcomEl.innerHTML = `Welcome ${name}!`;
+}
+
+window.addEventListener(setupClickHandlers);
