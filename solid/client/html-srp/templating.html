@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="doSomethingOnClick">
+        <h1>
+            <span class="brightBlue">
+                A Clickable Blue Header
+            </span>
+        </h1>
+    </header>
+
+    <div id="myFeatures">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="featureX">
+                    <h2>
+                        Hello,
+                        <% if (name.nickname) { %>
+                            <%= name.nickname %>
+                        <% } else if (name.first) { %>
+                            <%= name.first %>
+                        <% } else if (name.title && name.last) { %>
+                            <%= name.title %> <%= name.last %>
+                        <% } else {%>
+                            Friend!
+                        <% } %>
+                    </h2>  
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="featureY">
+                    <h2>FeatureY</h2>
+                    <p>This feature does something else...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
