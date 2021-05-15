@@ -1,53 +1,39 @@
 const MAX_USES = 8;
 
-export class Paint {
+export class PaintStore {
     constructor() {
-        let data = this.getPaint();
+        let data = JSON.parse(localStorage.getItem('paint'));
 
         if (!data) {
             data = {};
 
-            this.setPaint(data);
+            localStorage.setItem('paint', JSON.stringify(data));
         }
 
         this.data = data;
     }
 
-    setPaint(encoded) {
-        localStorage.setItem('paint', JSON.stringify(encoded));
+    set(color, value) {
+        this.data[color] = value;
+
+        localStorage.setItem('paint', this.data);
     }
 
-    getPaint() {
-        return JSON.parse(localStorage.getItem('paint'));
+    get(color) {
+        return this.data[color] || MAX_USES;
     }
 
-    getPaintLeft(color, uses) {
-        const paintLeft = this.getColor(color);
+    getAll() {
+        return this.data;
+    }
+}
 
-        if (!paintLeft) {
-            this.setDefaultPaintUsage(color);
-        }
-
-        if (uses) {
-            this.updatePaintUsage(color, uses);
-        }
-
-        return paintLeft;
+export class PaintReport {
+    constructor(data) {
+        this.data = data;
     }
 
-    getColor(color) {
-        return this.data[color];
-    }
-
-    updatePaintUsage(color, uses) {
-        this.data[color] = Math.max(this.data[color] - uses, 0);
-    }
-
-    setDefaultPaintUsage(color) {
-        this.data[color] = MAX_USES;
-    }
-
-    generateReport() {
+    generate() {
         let rowNum = 0;
         const max = Object.keys(this.data).length;
         this.report = `
@@ -79,7 +65,7 @@ export class Paint {
     getReportRow(color) {
         let output;
 
-        const remaining = this.getPaintLeft(color);
+        const remaining = this.data[color];
 
         output = `
                     <tr>
@@ -88,5 +74,28 @@ export class Paint {
                     </tr>`;
 
         return output;
+    }
+}
+
+export class Paint {
+    constructor(store, report) {
+        this.store = store;
+        this.report = report;
+    }
+
+    getPaintLeft(color, uses) {
+        if (uses) {
+            const newUses = Math.max(this.store.get(color) - uses, 0);
+
+            this.store.set(color, newUses);
+        }
+
+        return this.store.get(color);
+    }
+
+    generateReport() {
+        const report = new PaintReport(this.store.getAll());
+
+        return report.generate();
     }
 }
