@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "server": "serve src --cors",
+        "server": "serve --cors",
         "test": "jest"
     },
     "devDependencies": {
