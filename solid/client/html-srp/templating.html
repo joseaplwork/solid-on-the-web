@@ -20,16 +20,11 @@
             <div class="col-md-6">
                 <div id="featureX">
                     <h2>
-                        Hello,
-                        <% if (name.nickname) { %>
-                            <%= name.nickname %>
-                        <% } else if (name.first) { %>
-                            <%= name.first %>
-                        <% } else if (name.title && name.last) { %>
-                            <%= name.title %> <%= name.last %>
-                        <% } else {%>
-                            Friend!
-                        <% } %>
+                        <!--
+                            Dumb values should be displayed on the template
+                            and a the presentor layer should be the one implementing the logic
+                        -->
+                        Hello, <%= displayName %>
                     </h2>  
                 </div>
             </div>
