@@ -2,6 +2,10 @@ import { Paint } from '../paint';
 import { PaintStore } from '../PaintStore';
 
 describe('Paint', () => {
+    beforeEach(() => {
+        localStorage.clear();
+    });
+
     describe('rendering a report', () => {
         it('returns an HTML table', () => {
             const paint = new Paint(new PaintStore());
@@ -32,10 +36,30 @@ describe('Paint', () => {
                         <td>5</td>
                     </tr>
                 </tbody>
-            </table>
-            `;
+            </table>`;
 
             expect(paint.generateReport().trim()).toEqual(expected.trim());
+        });
+    });
+
+    describe('providing data for "almost out" report', () => {
+        it('should return 3 lowest non-zero paints ASC', () => {
+            const paint = new Paint(new PaintStore());
+
+            paint.usePaint('pink', 8);
+            paint.usePaint('blue', 7);
+            paint.usePaint('red', 6);
+            paint.usePaint('green', 5);
+            paint.usePaint('turqoise', 4);
+            paint.usePaint('purple', 3);
+
+            const expected = [
+                ['blue', 1],
+                ['red', 2],
+                ['green', 3],
+            ]
+
+            expect(paint.almostOutData()).toEqual(expected);
         });
     });
 });

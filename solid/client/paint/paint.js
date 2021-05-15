@@ -1,4 +1,11 @@
 import { PaintReport } from './PaintReport.js';
+import {
+    objToTuple,
+    removeZeroes,
+    sortAscending,
+    take,
+    compose
+} from './paint-data.js';
 
 export class Paint {
     constructor(store) {
@@ -19,5 +26,15 @@ export class Paint {
         const report = new PaintReport(this.store.getAll());
 
         return report.generate();
+    }
+
+    almostOutData() {
+        return compose(
+            () => this.store.getAll(),
+            objToTuple,
+            removeZeroes,
+            sortAscending,
+            (sorted) => take(3, sorted)
+        );
     }
 }
