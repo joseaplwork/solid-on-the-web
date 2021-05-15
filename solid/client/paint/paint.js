@@ -1,94 +1,92 @@
 const MAX_USES = 8;
-/* Identify change actors, who wants to changes to this file class */
+
 export class Paint {
     constructor() {
-        // persistant - Developer
-        let encoded = localStorage.getItem('paint');
+        let data = this.getPaint();
 
-        // reading - Developer
-        if (!encoded) {
-            encoded = '{}';
-            localStorage.setItem('paint', encoded);
+        if (!data) {
+            data = {};
+
+            this.setPaint(data);
         }
 
-        // data initialization - Developer
-        this.data = JSON.parse(encoded);
+        this.data = data;
+    }
+
+    setPaint(encoded) {
+        localStorage.setItem('paint', JSON.stringify(encoded));
+    }
+
+    getPaint() {
+        return JSON.parse(localStorage.getItem('paint'));
     }
 
     getPaintLeft(color, uses) {
-        // side effect
-        if (!this.data[color]) {
-            this.data[color] = MAX_USES;
+        const paintLeft = this.getColor(color);
 
-            localStorage.setItem('paint', JSON.stringify(this.data[color]))
+        if (!paintLeft) {
+            this.setDefaultPaintUsage(color);
         }
 
-        // side effect
         if (uses) {
-            this.data[color] = Math.max(this.data[color] - uses, 0);
-
-            localStorage.setItem('paint', JSON.stringify(this.data[color]))
+            this.updatePaintUsage(color, uses);
         }
 
-        // query
+        return paintLeft;
+    }
+
+    getColor(color) {
         return this.data[color];
     }
 
-    generateReport() {
-        // state change
-        this.reportDone = false;
-        this.inHeader = true;
-        this.rowNum = 0;
-        this.report = "<table>";
+    updatePaintUsage(color, uses) {
+        this.data[color] = Math.max(this.data[color] - uses, 0);
+    }
 
-        while (!this.reportDone) {
-            this.getReportRow();
+    setDefaultPaintUsage(color) {
+        this.data[color] = MAX_USES;
+    }
+
+    generateReport() {
+        let rowNum = 0;
+        const max = Object.keys(this.data).length;
+        this.report = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Remaining</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+
+        while (rowNum < max) {
+            const color = Object.keys(this.data)[rowNum];
+            this.report += this.getReportRow(color);
+
+            rowNum++;
         }
 
-        this.report += '</tbody></table>';
+        this.report += `
+                </tbody>
+            </table>
+        `;
 
-        // state change
         return this.report;
     }
 
-    getReportRow() {
+    getReportRow(color) {
         let output;
 
-        if (this.inHeader) {
-            output = `
-        <thead>
-          <tr>
-            <th>Color</th>
-            <th>Remaining</th>
-          </tr>
-        </thead>
-      `;
-            // state change
-            this.inHeader = false;
-        } else {
-            const color = Object.keys(this.data)[this.rowNum++];
+        const remaining = this.getPaintLeft(color);
 
-            if (color) {
-                const remaining = this.getPaintLeft(color);
+        output = `
+                    <tr>
+                        <td>${color}</td>
+                        <td>${remaining}</td>
+                    </tr>`;
 
-                output = `
-          <tbody>
-              <tr>
-                  <td>${color}</td>
-                  <td>${remaining}</td>
-              </tr>
-        `;
-            } else {
-                // state change
-                this.reportDone = true;
-
-                return;
-            }
-        }
-
-        this.report += output;
-
-        // query
         return output;
     }
 }
