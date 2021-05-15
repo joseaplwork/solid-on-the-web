@@ -11,12 +11,27 @@
 <body>
     <div id="paint"></div>
     <script type="module">
-        import { Paint } from './paint.js';
+        import { Paint } from './Paint.js';
+        import { PaintStore } from './PaintStore.js';
 
         const paintEl = document.querySelector('#paint');
-        const paint = new Paint();
+        const paint = new Paint(new PaintStore());
+        const MAX = 8;
+        let times = 0;
 
         paintEl.innerHTML = paint.generateReport();
+
+        const interval = setInterval(() => {
+            if (times < MAX) {
+                paint.usePaint('blue', 1);
+
+                paintEl.innerHTML = paint.generateReport();
+
+                times++;
+            } else {
+                clearInterval(interval);
+            }
+        }, 1000);
     </script>
 </body>
 

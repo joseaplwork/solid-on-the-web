@@ -1,13 +1,14 @@
-import { Paint, PaintStore } from '../paint';
+import { Paint } from '../paint';
+import { PaintStore } from '../PaintStore';
 
 describe('Paint', () => {
     describe('rendering a report', () => {
         it('returns an HTML table', () => {
             const paint = new Paint(new PaintStore());
 
-            paint.getPaintLeft('blue', 1);
-            paint.getPaintLeft('red', 2);
-            paint.getPaintLeft('green', 3);
+            paint.usePaint('blue', 1);
+            paint.usePaint('red', 2);
+            paint.usePaint('green', 3);
 
             const expected = `
             <table>
