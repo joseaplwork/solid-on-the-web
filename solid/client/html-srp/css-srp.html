@@ -13,22 +13,22 @@
           <div id="featureX">
             <h2>Hello, <%= displayName %></h2>
             
-            <form action="">
+            <form action="" class="featureX-form">
               <label for="name">Update Name:</label>
-              <input type="text" name="name">
-              <input type="button" value="Submit" class="disabled">
+              <input type="text" name="name" class="featureX-form__text-field" />
+              <input type="button" value="Submit" class="featureX-form__submit-button--disabled">
             </form>
 
             <style>
-              #featureX form {
+              .featureX-form {
                 background: #eee;
               }
 
-              #featureX form input[name="name"] {
+              .featureX-form__text-field {
                 font-size: 25px;
               }
 
-              #featureX form input.disabled {
+              .featureX-form__submit-button--disabled {
                 color: #aaa;
               }
             </style>
