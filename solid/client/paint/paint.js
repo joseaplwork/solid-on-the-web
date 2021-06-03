@@ -22,8 +22,8 @@ export class Paint {
         this.store.set(color, remaining);
     }
 
-    generateReport() {
-        const report = new PaintReport(this.store.getAll());
+    generateReport(options) {
+        const report = new PaintReport(this.store.getAll(), options);
 
         return report.generate();
     }

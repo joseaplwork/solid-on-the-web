@@ -40,7 +40,44 @@ describe('Paint', () => {
 
             expect(paint.generateReport().trim()).toEqual(expected.trim());
         });
+
+        it('reverses the order of the columns', () => {
+            const paint = new Paint(new PaintStore());
+
+            paint.usePaint('blue', 1);
+            paint.usePaint('red', 2);
+            paint.usePaint('green', 3);
+
+            const expected = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Remaining</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7</td>
+                        <td>blue</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>red</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>green</td>
+                    </tr>
+                </tbody>
+            </table>`;
+
+            expect(paint.generateReport({
+                reverseColumns: true
+            }).trim()).toEqual(expected.trim());
+        });
     });
+
 
     describe('providing data for "almost out" report', () => {
         it('should return 3 lowest non-zero paints ASC', () => {

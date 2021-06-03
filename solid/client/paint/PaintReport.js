@@ -1,6 +1,7 @@
 export class PaintReport {
-    constructor(data) {
+    constructor(data, options = {}) {
         this.data = data;
+        this.reverseColumns = !!options.reverseColumns;
     }
 
     eachColor(fn) {
@@ -29,6 +30,18 @@ export class PaintReport {
     }
 
     getReportHeader() {
+        if (this.reverseColumns) {
+            return `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Remaining</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+        }
+        
         return `
             <table>
                 <thead>
@@ -41,6 +54,14 @@ export class PaintReport {
     }
 
     getReportRow(color, remaining) {
+        if (this.reverseColumns) {
+            return `
+                    <tr>
+                        <td>${remaining}</td>
+                        <td>${color}</td>
+                    </tr>`;
+        }
+
         return `
                     <tr>
                         <td>${color}</td>
