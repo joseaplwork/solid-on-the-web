@@ -1,5 +1,6 @@
 import { Paint } from '../paint';
 import { PaintStore } from '../PaintStore';
+import { DivFormatter } from '../DivFormatter';
 
 describe('Paint', () => {
     beforeEach(() => {
@@ -73,7 +74,7 @@ describe('Paint', () => {
             expect(paint.generateReport({
                 reverseColumns: true,
                 prices: prices,
-                useDivs: true
+                formatter: new DivFormatter()
             })).toEqual(expected);
         });
     });
