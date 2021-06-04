@@ -31,3 +31,9 @@ _ Extension: adding new classes, modules, functions or methods, take a look to t
 _ Modification: referes to make inline changes to existing logic, it will add new ideas but destroy existing ones
 _ Step back and ask, is there some missing abstraction that would allow me to make this change trhough extension
 _ When we add abstractions in order to satisfy, one of the risk that we run is adding abstractions that are not right, not meaninful
+
+# Livkov substitucion Principle
+
+_ The cynefin framework:
+_ enteprise features:
+
