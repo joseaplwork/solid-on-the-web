@@ -5,7 +5,7 @@ export class PaintReport {
         this.data = data;
         this.reverseColumns = !!options.reverseColumns;
         this.prices = options.prices;
-        this.formatter = options.formatter || new TableFormatter();
+        this.formatter = options.formatter || TableFormatter;
     }
 
     eachColor(fn) {
@@ -50,6 +50,6 @@ export class PaintReport {
         const columns = this.columns();
         const rows = this.rows();
 
-        return this.formatter.format(columns, rows);
+        return this.formatter(columns, rows);
     }
 }

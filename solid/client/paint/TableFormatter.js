@@ -1,29 +1,14 @@
-import { Formatter } from './Formatter.js';
+import mustache from 'mustache';
 
-export const TableFormatter = {
-    wrapReport(content) {
-        return `<table>${content}</table>`;
-    },
+export function TableFormatter(columns, rows) {
+    const template = `<table>
+        <thead><tr>{{#columns}}<th>{{.}}</th>{{/columns}}</tr></thead>
+        <tbody>
+        {{#rows}}
+            <tr>{{#.}}<td>{{.}}</td>{{/.}}</tr>
+        {{/rows}}
+        </tbody>
+    </table>`.replace(/\n\s*/g, '');
 
-    wrapBody(content) {
-        return `<tbody>${content}</tbody>`;
-    },
-    
-    wrapHeader(content) {
-        return `<thead><tr>${content}</tr></thead>`;
-    },
-
-    wrapRow(content) {
-        return `<tr>${content}</tr>`;
-    },
-
-    wrapValue(content) {
-        return `<td>${content}</td>`;
-    },
-
-    wrapColumn(content) {
-        return `<th>${content}</th>`;
-    }
+    return mustache.render(template, { columns, rows });
 }
-
-Object.assign(TableFormatter, Formatter);
