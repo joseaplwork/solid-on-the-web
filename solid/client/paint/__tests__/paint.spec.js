@@ -74,7 +74,7 @@ describe('Paint', () => {
             expect(paint.generateReport({
                 reverseColumns: true,
                 prices: prices,
-                formatter: new DivFormatter()
+                formatter: DivFormatter
             })).toEqual(expected);
         });
     });
