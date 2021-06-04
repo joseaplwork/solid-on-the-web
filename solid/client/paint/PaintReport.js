@@ -5,8 +5,7 @@ export class PaintReport {
         this.data = data;
         this.reverseColumns = !!options.reverseColumns;
         this.prices = options.prices;
-        this.useDivs = !!options.useDivs;
-        this.formatter = options.formatter || new TableFormatter(!!this.useDivs);
+        this.formatter = options.formatter || new TableFormatter();
     }
 
     eachColor(fn) {
