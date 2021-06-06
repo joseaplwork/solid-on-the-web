@@ -17,21 +17,9 @@ class App extends Component {
         return JSON.stringify(this.state);
     };
     
-    updateField = (event) => {
+    updateField = (event, value) => {
         const { target } = event;
         const name = target.name;
-        let value = target.value;
-
-        if (name === 'quantity') {
-            value = parseInt(value, 10);
-        } else if (name === 'mailing-list') {
-            value = target.checked;
-        } else if (name === 'colors') {
-            value = [];
-            Array.prototype.forEach.call(target.options, options => {
-                if (options.selected) value.push(options.value);
-            });
-        }
 
         this.setState({
             [name]: value
@@ -68,8 +56,16 @@ class Input extends Component {
             id={this.fieldId()}
             type="text"
             name={this.props.name}
-            onChange={this.props.onChange} />
+            onChange={this.onChange} />
         );
+    }
+
+    onChange = (event) => {
+        this.props.onChange(event, this.value(event.target));
+    }
+
+    value(target) {
+        return target.value;
     }
 
     render() {
@@ -93,8 +89,12 @@ class NumericInput extends Input {
             id={this.fieldId()}
             type="number"
             name={this.props.name}
-            onChange={this.props.onChange} />
+            onChange={this.onChange} />
         );
+    }
+
+    value(target) {
+        return parseInt(target.value, 10);
     }
 }
 
@@ -105,8 +105,12 @@ class CheckboxInput extends Input {
             id={this.fieldId()}
             type="checkbox"
             name={this.props.name}
-            onChange={this.props.onChange} />
+            onChange={this.onChange} />
         );
+    }
+    
+    value(target) {
+        return target.checked;
     }
 }
 
@@ -117,7 +121,7 @@ class ColorsInput extends Input {
                 id={this.fieldId()}
                 className="App-multi-select"
                 name={this.props.name}
-                onChange={this.props.onChange}
+                onChange={this.onChange}
                 multiple
             >
                 <option value="red">Red</option>
@@ -125,6 +129,16 @@ class ColorsInput extends Input {
                 <option value="blue">Blue</option>
             </select>
         );
+    }
+
+    value(target) {
+        const value = [];
+        
+        Array.prototype.forEach.call(target.options, options => {
+            if (options.selected) value.push(options.value);
+        });
+
+        return value;
     }
 }
 
