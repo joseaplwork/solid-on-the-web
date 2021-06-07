@@ -1,18 +1,20 @@
-import { User } from '../User';
+import { User, MemberUser } from '../User';
 
 const TWO_DAYS_AGO = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 2));
 
 describe('Member User', () => {
     let user;
+    let data;
 
     beforeEach(() => {
-        user = new User({
+        data = {
             address1: '123 Foo',
             city: 'Footown',
             state: 'FO',
             zip: '14321',
             username: 'fooey-foo',
-        });
+        };
+        user = new MemberUser(new User(data));
     });
 
     it('provides a name', () => {
@@ -26,7 +28,7 @@ describe('Member User', () => {
     });
 
     it('provides a name', () => {
-        user.data.address2 = 'Apt 2';
+        data.address2 = 'Apt 2';
 
         const expected = '123 Foo\nApt 2\nFootown, FO 14321';
 

@@ -1,10 +1,10 @@
-export class User {
-    constructor(data) {
-        this.data = data;
+export class MemberUser {
+    constructor(user) {
+        this.user = user;
     }
 
     address() {
-        const data = this.data;
+        const data = this.user.data;
         
         if (data.address1) {
             return this._formatAddress(
@@ -15,6 +15,26 @@ export class User {
                 data.zip
             )
         }
+    }
+
+    name() {
+        return this.user.name();
+    }
+
+    _formatAddress(add1, add2, city, state, zip) {
+        let out = add1;
+
+        if (add2) out += `\n${add2}`;
+
+        out += `\n${city}, ${state} ${zip}`;
+
+        return out;
+    }
+}
+
+export class User {
+    constructor(data) {
+        this.data = data;
     }
 
     daysLeftInTrial() {
@@ -34,15 +54,5 @@ export class User {
 
     _millisToDays(millis) {
         return Math.floor(millis / 1000 / 60 / 60 / 24);
-    }
-
-    _formatAddress(add1, add2, city, state, zip) {
-        let out = add1;
-
-        if (add2) out += `\n${add2}`;
-
-        out += `\n${city}, ${state} ${zip}`;
-
-        return out;
     }
 }
