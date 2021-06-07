@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App, { PaintJsClient, BigBucksInvestorClient } from './App';
 import reportWebVitals from './reportWebVitals';
+
+const client = new PaintJsClient();
+// const client = new BigBucksInvestorClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App client={ client } />
   </React.StrictMode>,
   document.getElementById('root')
 );
