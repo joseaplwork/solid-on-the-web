@@ -1,4 +1,5 @@
-import { User, MemberUser } from '../User';
+import { User } from '../User';
+import { MemberUser } from '../MemberUser';
 
 const TWO_DAYS_AGO = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 2));
 
