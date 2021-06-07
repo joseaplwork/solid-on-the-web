@@ -35,5 +35,35 @@ _ When we add abstractions in order to satisfy, one of the risk that we run is a
 # Livkov substitucion Principle
 
 _ The cynefin framework:
-_ enteprise features:
+    Snowden set out to create an organizational model that would help to explain different problem domains.
+    Everyone in the team can form hypothesis and execute against it.
+    Before writting any line of code we should talk with the manager in order to validate the project ideas with real users.
+    validate your assumptions.
+    assume you will things along the way
+    work in short iterations with fast feedback
+
+    Obvius problems:
+        . Clasify the problem and apply the best practices
+        . They have known best practices
+    Complicated problems:
+        . They have many moving parts
+        . They required highly skilled workers
+        . Coordination with different groups
+        . Once we have the plane then it's all about execution
+        . You know where you are and where you want to be A -> B
+        . A successful execution will deterministically give you a successful outcome
+        . A fail execution will deterministically give you a fail outcome
+    Complex problems:
+        . They don't have deterministic outputs because they don't have deterministic inputs
+        . Best practices are innaplicable
+        . We expect to find emergent pratices, through experimentation and trhough innovation
+    Chaos:
+        . You don't know where you nor where you go
+        . Noble pratices, clafiry the situation
+    
+_ LSP is about letting the user handle different objects that implement a   supertype without checking what the actual type they are. This is inherently what polymorphism is about.
+
+_This principle provides an alternative to do type-checking and type-conversion, that can get out of hand as the number of types grow, and can be achieved through pull-up refactoring or applying patterns such as Visitor.
+
+
 
