@@ -65,5 +65,15 @@ _ LSP is about letting the user handle different objects that implement a   supe
 
 _This principle provides an alternative to do type-checking and type-conversion, that can get out of hand as the number of types grow, and can be achieved through pull-up refactoring or applying patterns such as Visitor.
 
+# Interface segregation Principle
+    It provides you with abstractions that take up less room in your head when trying to understand the system.
+    ISP splits interfaces that are very large into smaller and more specific ones so that clients will only have to know about the methods that are of interest to them
 
-
+    Approach #1 (extraction pattern):
+        extract functionality from the base class
+        and shared functionalitty will need to be there as well
+    Approach #2 (facade pattern):
+        We use this approach over extraction if the class you are trying to extract is to big and complex to be able to cleanly and safetly extract the class
+    Approach #2 (classical inheritance):
+        Use `extends` to extend methods from base class
+        Downside is that the API will not be clear
