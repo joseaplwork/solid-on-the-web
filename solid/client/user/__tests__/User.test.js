@@ -1,5 +1,6 @@
 import { User } from '../User';
 import { MemberUser } from '../MemberUser';
+import { AdminUser } from '../AdminUser';
 
 const TWO_DAYS_AGO = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 2));
 
@@ -42,9 +43,9 @@ describe('Admin User', () => {
     let user;
 
     beforeEach(() => {
-        user = new User({
+        user = new AdminUser(new User({
             username: 'fooey-foo',
-        });
+        }));
     });
 
     it('provides a name', () => {
